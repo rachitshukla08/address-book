@@ -60,7 +60,7 @@ public class AddressBookMain {
 		AddressBookMain addressObj = new AddressBookMain();
 		int choice = 0;
 
-		while (choice != 3) {
+		while (choice != 4) {
 			System.out.println(
 					"Enter a choice: \n 1)Add a new contact \n 2)Edit a contact \n 3)Delete Contact \n 4)Exit");
 			choice = Integer.parseInt(sc.nextLine());
