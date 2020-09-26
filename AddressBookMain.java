@@ -80,6 +80,13 @@ public class AddressBookMain {
 				String lastName = sc.nextLine();
 				boolean contactFound = addressObj.editDetails(firstName, lastName);
 				if(contactFound==true)
+					System.out.println("Details successfully edit");
+				else 
+					System.out.println("Contact not found");
+				break;
+			}
+			case 3: {
+				System.exit(0);
 				{
 					System.out.println("Details successfully edit");
 				}
