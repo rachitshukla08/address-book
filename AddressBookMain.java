@@ -87,11 +87,6 @@ public class AddressBookMain {
 			}
 			case 3: {
 				System.exit(0);
-				{
-					System.out.println("Details successfully edit");
-				}
-				else 
-					System.out.println("Contact not found");
 			}
 			}
 		}
