@@ -18,7 +18,7 @@ public class AddressBookMain {
 
 	public boolean editDetails(String firstName, String lastName) {
 		ContactsUC1 editObj;
-		boolean contactFound=false;
+		boolean contactFound = false;
 		for (int i = 0; i < addressList.size(); i++) {
 			editObj = (ContactsUC1) addressList.get(i);
 			if ((editObj.getFirstName().equals(firstName)) && (editObj.getLastName().equals(lastName))) {
@@ -34,6 +34,20 @@ public class AddressBookMain {
 				editObj.setPhoneNo(sc.nextLine());
 				System.out.println("Enter new Email");
 				editObj.setEmail(sc.nextLine());
+				contactFound = true;
+				break;
+			}
+		}
+		return contactFound;
+	}
+
+	public boolean removeDetails(String firstName, String lastName) {
+		ContactsUC1 removeObj;
+		boolean contactFound = false;
+		for (int i = 0; i < addressList.size(); i++) {
+			removeObj = (ContactsUC1) addressList.get(i);
+			if ((removeObj.getFirstName().equals(firstName)) && (removeObj.getLastName().equals(lastName))) {
+				addressList.remove(i);
 				contactFound=true;
 				break;
 			}
@@ -47,7 +61,8 @@ public class AddressBookMain {
 		int choice = 0;
 
 		while (choice != 3) {
-			System.out.println("Enter a choice: \n 1)Add a new contact \n 2)Edit a contact \n 3)Exit");
+			System.out.println(
+					"Enter a choice: \n 1)Add a new contact \n 2)Edit a contact \n 3)Delete Contact \n 4)Exit");
 			choice = Integer.parseInt(sc.nextLine());
 			switch (choice) {
 			case 1: {
@@ -79,13 +94,24 @@ public class AddressBookMain {
 				String firstName = sc.nextLine();
 				String lastName = sc.nextLine();
 				boolean contactFound = addressObj.editDetails(firstName, lastName);
-				if(contactFound==true)
+				if (contactFound == true)
 					System.out.println("Details successfully edit");
-				else 
+				else
 					System.out.println("Contact not found");
 				break;
 			}
 			case 3: {
+				System.out.println("Enter first name press Enter and then enter last name of person to delete data");
+				String firstName = sc.nextLine();
+				String lastName = sc.nextLine();
+				boolean contactFound = addressObj.removeDetails(firstName, lastName);
+				if (contactFound == true)
+					System.out.println("Details successfully deleted");
+				else
+					System.out.println("Contact not found");
+				break;
+			}
+			case 4: {
 				System.exit(0);
 			}
 			}
