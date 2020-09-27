@@ -1,6 +1,7 @@
 import java.util.*;
 
-/**Ability to add a contact
+/**Ability to add multiple address book to system
+ * 
  * 
  */
 
@@ -12,9 +13,13 @@ public class AddressBookMain {
 	Scanner sc = new Scanner(System.in);
 	private List<ContactsUC1> addressList = new ArrayList<ContactsUC1>();
 
+	HashMap<String, List<ContactsUC1>> addressBookMap = new HashMap<String, List<ContactsUC1>>();
+
+	// Map to store multiple address
 	public void addContact(ContactsUC1 contactObj) {
 		addressList.add(contactObj);
 	}
+	// Add contact to address book
 
 	public boolean editDetails(String firstName, String lastName) {
 		ContactsUC1 editObj;
@@ -40,6 +45,7 @@ public class AddressBookMain {
 		}
 		return contactFound;
 	}
+	// Edit contact details
 
 	public boolean removeDetails(String firstName, String lastName) {
 		ContactsUC1 removeObj;
@@ -48,11 +54,18 @@ public class AddressBookMain {
 			removeObj = (ContactsUC1) addressList.get(i);
 			if ((removeObj.getFirstName().equals(firstName)) && (removeObj.getLastName().equals(lastName))) {
 				addressList.remove(i);
-				contactFound=true;
+				contactFound = true;
 				break;
 			}
 		}
 		return contactFound;
+	}
+	// Remove contact from given address book
+
+	public void addAddressList(String listName) {
+		List<ContactsUC1> newAddressList = new ArrayList<ContactsUC1>();
+		addressBookMap.put(listName, newAddressList);
+		System.out.println("Address Book added");
 	}
 
 	public static void main(String[] args) {
@@ -60,9 +73,28 @@ public class AddressBookMain {
 		AddressBookMain addressObj = new AddressBookMain();
 		int choice = 0;
 
-		while (choice != 4) {
+		while (choice != 6) {
+			if (addressObj.addressBookMap.isEmpty()) {
+				System.out.println("Please add an address book to begin");
+				System.out.println("Enter the name of address book that u want to add:");
+				String listName = sc.nextLine();
+				addressObj.addAddressList(listName);
+			}
+			// Checking in address list is present in hashmap
+			System.out.println("Enter the name of the address book you want to access");
+			String listName = sc.nextLine();
+			if (addressObj.addressBookMap.containsKey(listName)) {
+				addressObj.addressList = addressObj.addressBookMap.get(listName);
+			}
+
+			else {
+				System.out.println("Address list with name" + listName + " not present. Please add it first.");
+			}
+
+			// This condition checks if there is atleast one address book present. If not,
+			// you have to add an address book to begin.
 			System.out.println(
-					"Enter a choice: \n 1)Add a new contact \n 2)Edit a contact \n 3)Delete Contact \n 4)Exit");
+					"Enter a choice: \n 1)Add a new contact \n 2)Edit a contact \n 3)Delete Contact \n 4)Add Address Book \n 5)View Address Book \n 6)Exit");
 			choice = Integer.parseInt(sc.nextLine());
 			switch (choice) {
 			case 1: {
@@ -112,7 +144,17 @@ public class AddressBookMain {
 				break;
 			}
 			case 4: {
-				System.exit(0);
+				System.out.println("Enter the name of address book that u want to add:");
+				listName = sc.nextLine();
+				addressObj.addAddressList(listName);
+				break;
+			}
+			case 5: {
+				System.out.println(" "+addressObj.addressList);
+				break;
+			}
+			case 6: {
+				System.out.println("Thank you for using the application");
 			}
 			}
 		}
